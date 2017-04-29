@@ -3,6 +3,8 @@ sudo: false
 dart:
  - dev
  - stable
+ - 1.23.0
+ - 1.22.1
 cache:
  directories:
    - $HOME/.pub-cache
@@ -13,11 +15,7 @@ dart_task:
  - dartfmt
  - dartanalyzer
 matrix:
-  allow_failures:
-    # Repo was formatted with stable SDK
-    - dart: dev
+  exclude:
+    # Repo was formatted with 1.23.x SDK
+    - dart: 1.22.1
       dart_task: dartfmt
-    # Pub can hang on tests using dev SDK
-    - dart: dev
-      dart_task:
-        test: --platform vm -x content-shell -x chrome -x firefox -x dartium -x phantomjs --timeout 4x
